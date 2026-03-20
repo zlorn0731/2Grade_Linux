@@ -428,3 +428,6 @@ $ echo "first log message" >> log.txt
 first log message
 ```
 
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: VMware - Ubuntu
+##### 🗓️ 작업일: 2026-03-20
