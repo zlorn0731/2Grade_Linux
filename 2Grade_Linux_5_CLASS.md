@@ -73,4 +73,4 @@
 | 사용 예 | 의미 |
 |---------|------|
 | pwd;ls | 왼쪽부터 차례대로 pwd 명령을 실행한 후 ls 명령을 실행 |
-| cat /etc/services"|"more | /etc/services 파일의 내용을 한 화면씩 출력 |
+| cat /etc/services\|more | /etc/services 파일의 내용을 한 화면씩 출력 |
