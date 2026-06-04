@@ -414,3 +414,403 @@ done
 
 #### 반복문 실습
 ```
+$ vi for.sh
+
+#!/bin/bash
+
+echo "이름 입력:"
+read name
+
+echo "숫자 입력:"
+read num
+
+if [ $num -gt 10 ]
+then
+  echo "$name님, 숫자가 큽니다"
+else
+  echo "$name님, 숫자가 작습니다"
+fi
+
+for in {1..3}
+do
+  echo "Hello $name"
+done
+
+$ chmod +x for.sh
+$ ./for.sh
+```
+
+### 파일 처리
+```
+if [ -f file.txt ]
+then
+  echo "파일 존재"
+fi
+```
+- 
+| 옵션 | 의미 |
+|------|------|
+| -f | 파일 존재 (파일만 검사) |
+| -d | 디렉토리 (디렉토리만 검사) |
+| -e | 존재 여부 (전부 검사) |
+
+### 함수
+```
+$ vi func3.sh
+
+#!/bin/bash
+
+hello() {
+  echo "Hello Linux"
+}
+
+hello
+```
+
+### 함수 + 변수
+```
+$ vi func4.sh
+
+#!/bin/bash
+
+print_name() {
+  echo "My name is $name"
+}
+
+name="Kim"
+print_name
+```
+
+### 함수 + 입력값
+```
+$ vi func5.sh
+
+#!/bin/bash
+
+sum() {
+  result=$((a+b))
+  echo "합:$result"
+}
+
+a=10
+b=20
+
+sum
+```
+
+### 함수 + 파라미터
+```
+함수이름 값1, 값2
+
+$1 → 첫 번째 값
+$2 → 두 번째 값
+```
+```
+$ func6.sh
+
+#!/bin/bash
+
+add() {
+  echo "합:$(($1+$2))"
+}
+add 10 20
+```
+
+#### 예제 1 : 계산기
+```
+$ vi calc.sh
+
+#!/bin/bash
+
+read a
+read b
+
+sum=$((a+b))
+echo "합계:$sum"
+```
+
+#### 예제 2 : 짝수 출력
+```
+$ vi even.sh
+
+#!/bin/bash
+
+for i in {1..10}
+do
+if [ $((i%2)) -eq 0 ]
+then
+  echo $i
+fi
+done
+```
+
+#### 예제 3 : 파일 존재 확인
+```
+$ vi checkfile.sh
+
+#!/bin/bash
+
+read filename
+
+if [ -f $filename ]
+then
+  echo "파일 존재"
+else
+  echo "파일 없음"
+fi
+```
+
+#### 간단한 ATM 프로그램
+```
+[요구사항]
+
+초기 잔액 : 1000
+deposit / withdraw 입력
+ [입급]    [출금]
+금액 입력
+잔액 계산
+```
+```
+$ vi atm.sh
+
+#!/bin/bash
+
+# 초기 잔액
+balance=1000 # 초기값 설정, 변수선언(공백없이)
+
+echo "현재 잔액:$balance"
+
+# 작업 선택
+echo "deposit 또는 withdraw 입력하세요:"
+read action # 입력값을 변수에 저장
+
+# 금액 입력
+echo "금액을 입력하세요:"
+read amount # 입력값을 변수에 저장
+
+# 조건 처리
+if [ "$action" = "deposit" ]
+then
+  balance=$((balance + amount)) echo "입금 완료"
+  echo "현재 잔액:$balance"
+elif [ "$action" = "withraw" ]
+then
+  if [$amount -gt $balance ]
+  then
+    echo "잔액 부족"
+  else
+    balance=$((balance - amount))
+    echo "출금 완료"
+    echo "현재 잔액:$balance"
+  fi
+  else
+    echo "잘못된 입력입니다"
+  fi
+```
+```
+[실행 예시]
+
+현재 잔액: 1000
+deposit 또는 withdraw 입력하세요:
+deposit
+금액을 입력하세요:
+500
+
+입금완료
+현재 잔액: 1500
+```
+
+### Shell Script 저장 방법
+```
+atm.sh
+
+atm → 프로그램 이름
+.sh → shell script 파일이라는 의미
+
+touch atm.sh
+vi atm.sh
+
+chmod +x atm.sh
+./atm.sh
+```
+
+### 실습 문제(1 ~ 19)
+- 1. hello.sh 파일을 생성하고 "Hello Linux"를 출력하는 스크립트를 작성하시오
+```
+$ vi hello.sh
+
+#!/bin/bash
+
+echo "Hello Linux"
+```
+- 2. 현재 날짜와 시간을 출력하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+date
+```
+- 3. 현재 사용자 이름을 출력하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+whoami
+```
+- 4. 현재 작업 디렉토리를 출력하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+pwd
+```
+- 5. 변수 name에 본인 이름을 저장하고 출력하시오
+```
+#!/bin/bash
+
+name="박지안"
+echo $name
+```
+- 6. 두 숫자를 변수에 저장하고 합을 출력하시오
+```
+#!/bin/bash
+
+a=10
+b=20
+sum=$((a+b))
+echo $sum
+```
+- 7. 사용자로부터 이름을 입력받아 출력하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+echo "이름을 입력하시오:"
+read name
+echo $name
+```
+- 8. 사용자로부터 숫자를 입력받아 2배 값을 출력하시오
+```
+#!/bin/bash
+
+echo "숫자를 입력하시오:"
+read num
+echo $((num * 2))
+```
+- 9. 현재 날짜를 변수에 저장하여 출력하시오
+```
+#!/bin/bash
+
+today=$(date)
+echo $today
+```
+- 10. 입력받아 숫자가 10보다 크면 "크다"를 출력하시오 -gt : greater than
+```
+#!/bin/bash
+
+read num
+
+if [ $num -gt 10 ]
+then
+  echo "크다"
+fi
+```
+- 11. 입력받은 숫자가 짝수인지 홀수인지 출력하시오
+```
+#!/bin/bash
+
+read num
+
+if [ $((num % 2)) -eq 0 ]
+then
+  echo "짝수"
+else
+  echo "홀수"
+fi
+```
+- 12. 입력받은 점수가 60 이상이면 "합격", 아니면 "불합격" 출력 -ge : greater or equal
+```
+#!/bin/bash
+
+read score
+
+if [ $score -ge 60 ]
+then
+  echo "합격"
+else
+  echo "불합격"
+fi
+```
+- 13. 파일이 존재하는지 확인하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+if [ -f file.txt ]
+then
+  echo "파일 존재"
+else
+  echo "없음"
+fi
+```
+- 14. 사용자가 root인지 확인하여 메시지 출력
+```
+#!/bin/bash
+
+if [ $USER = "root" ]
+then
+  echo "관리자"
+else
+  echo "일반 사용자'
+fi
+```
+- 15. 1부터 5까지 숫자를 출력하시오 {1..5} : 범위 반복
+```
+#!/bin/bash
+
+for i in {1..5}
+do
+  echo $i
+done
+```
+- 16. 1부터 10까지 합을 구하는 스크립트를 작성하시오
+```
+#!/bin/bash
+
+sum=0
+
+for i in {1..10}
+do
+  sum=$((sum + i))
+done
+echo $sum
+```
+- 17. 현재 디렉토리의 파일 목록을 반복문으로 출력하시오
+```
+#!/bin/bash
+
+for file in *
+do
+  echo $file
+done
+```
+- 18. 사용자가 입력한 숫자까지 반복 출력
+```
+#!/bin/bash
+
+read num
+
+for ((i=1; i<=num; i++))
+do
+  echo $i
+done
+```
+- 19. 무한 반복으로 "Hello"를 출력하다가 종료하는 스크립트 작성
+```
+#!/bin/bash
+
+while true
+do
+  echo "Hello"
+  sleep 1
+done
+```
+
+##### ✍️작성자: 박지안
+##### 🐧실습 환경: VMware - Ubuntu
+##### 🗓️ 작업일: 2026-06-04
